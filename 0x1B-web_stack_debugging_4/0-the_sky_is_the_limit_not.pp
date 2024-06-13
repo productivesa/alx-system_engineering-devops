@@ -1,17 +1,6 @@
-# Increase the amount of traffic on nginx
-
-#Increase the ulimit
-exec { 'fix--for-nginx':
- #modify
- command => '/bin/sed -i "s/15/4096/" /etc/default/nginx',
- #specify path
- path    => '/usr/local/bin/:/bin/',
+# Increase the amount of traffic nginx
+# Fix Nginx limits
+exec { 'Limit':
+  command => '/usr/bin/env sed -i s/15/2000/ /etc/default/nginx',
 }
-#restart nginx
-exec { 'nginx-restart':
- #restart nginx service
- command => '/etc/init.d/nginx restart',
- #modify the path
- path   => '/etc/init.d/',
-}
-
+exec { '/usr/bin/env service nginx restart': }
